@@ -46,5 +46,17 @@ private static List<UserMeal> meals;
 
     @Test
     public void filteredByStreams() {
+        List<UserMealWithExcess> mealsTo = UserMealsUtil.filteredByStreams(meals, LocalTime.of(7, 0), LocalTime.of(12, 0), 2000);
+        assertEquals(2, mealsTo.size());
+
+        UserMealWithExcess firstElement = mealsTo.get(0);
+        assertEquals("Завтрак", firstElement.getDescription());
+        assertEquals(500, firstElement.getCalories());
+        assertFalse(firstElement.isExcess());
+
+        UserMealWithExcess secondElement = mealsTo.get(1);
+        assertEquals("Завтрак", secondElement.getDescription());
+        assertEquals(1000, secondElement.getCalories());
+        assertTrue(secondElement.isExcess());
     }
 }
