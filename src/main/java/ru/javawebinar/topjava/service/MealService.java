@@ -20,11 +20,9 @@ public class MealService {
             new Meal(LocalDateTime.of(2020, Month.JANUARY, 31, 20, 0), "Ужин", 410)
     );
 
-    private static final LocalTime startTime = LocalTime.of(7, 0);
-    private static final LocalTime endTime = LocalTime.of(12, 0);
     private static final int CALORIES_PER_DAY = 2000;
 
-    public static List<MealTo> getFilteredMealTo() {
-        return MealsUtil.filteredByCycles(meals, startTime, endTime, CALORIES_PER_DAY);
+    public static List<MealTo> getMealToWithoutFilter() {
+        return MealsUtil.filteredByCycles(meals, LocalTime.MIN, LocalTime.MAX, CALORIES_PER_DAY);
     }
 }
