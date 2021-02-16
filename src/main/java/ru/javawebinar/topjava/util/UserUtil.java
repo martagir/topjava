@@ -1,30 +1,29 @@
 package ru.javawebinar.topjava.util;
 
-import ru.javawebinar.topjava.model.Meal;
-import ru.javawebinar.topjava.to.MealTo;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import ru.javawebinar.topjava.model.Meal;
+import ru.javawebinar.topjava.model.Role;
+import ru.javawebinar.topjava.model.User;
+import ru.javawebinar.topjava.to.MealTo;
 
-public class MealsUtil {
-    public static final int DEFAULT_CALORIES_PER_DAY = 2000;
+public class UserUtil {
 
-    public static final List<Meal> meals = Arrays.asList(
-            new Meal(LocalDateTime.of(2020, Month.JANUARY, 30, 10, 0), "Завтрак", 500),
-            new Meal(LocalDateTime.of(2020, Month.JANUARY, 30, 13, 0), "Обед", 1000),
-            new Meal(LocalDateTime.of(2020, Month.JANUARY, 30, 20, 0), "Ужин", 500),
-            new Meal(LocalDateTime.of(2020, Month.JANUARY, 31, 0, 0), "Еда на граничное значение", 100),
-            new Meal(LocalDateTime.of(2020, Month.JANUARY, 31, 10, 0), "Завтрак", 1000),
-            new Meal(LocalDateTime.of(2020, Month.JANUARY, 31, 13, 0), "Обед", 500),
-            new Meal(LocalDateTime.of(2020, Month.JANUARY, 31, 20, 0), "Ужин", 410)
+    public static final List<User> users = Arrays.asList(
+            new User(null, "Диппер", "dipper@grf.com", "dipper@grf.com", Role.USER),
+            new User(null, "Мэйбл", "mabel@grf.com", "mabel@grf.com", Role.USER),
+            new User(null, "Дядя Стэн", "stan@grf.com", "stan@grf.com", Role.USER, Role.ADMIN),
+            new User(null, "Зус", "soos@grf.com", "soos@grf.com", Role.USER),
+            new User(null, "Венди", "wendy@grf.com", "wendy@grf.com", Role.USER)
     );
 
     public static List<MealTo> getTos(Collection<Meal> meals, int caloriesPerDay) {
