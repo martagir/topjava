@@ -19,7 +19,8 @@ import ru.javawebinar.topjava.to.MealTo;
 public class UserUtil {
 
     public static final List<User> users = Arrays.asList(
-            new User(null, "Диппер", "dipper@grf.com", "dipper@grf.com", Role.USER),
+            new User(null, "Диппер", "dipper1@grf.com", "dipper@grf.com", Role.USER),
+            new User(null, "Диппер", "dipper2@grf.com", "dipper@grf.com", Role.USER),
             new User(null, "Мэйбл", "mabel@grf.com", "mabel@grf.com", Role.USER),
             new User(null, "Дядя Стэн", "stan@grf.com", "stan@grf.com", Role.USER, Role.ADMIN),
             new User(null, "Зус", "soos@grf.com", "soos@grf.com", Role.USER),

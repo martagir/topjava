@@ -1,5 +1,9 @@
 package ru.javawebinar.topjava.repository.inmemory;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.repository.MealRepository;
 import ru.javawebinar.topjava.util.MealsUtil;
@@ -8,6 +12,8 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
+import ru.javawebinar.topjava.util.exception.NotFoundException;
+import ru.javawebinar.topjava.web.SecurityUtil;
 
 public class InMemoryMealRepository implements MealRepository {
     private final Map<Integer, Meal> repository = new ConcurrentHashMap<>();
@@ -35,12 +41,17 @@ public class InMemoryMealRepository implements MealRepository {
 
     @Override
     public Meal get(int id) {
-        return repository.get(id);
+        Meal meal =  repository.get(id);
+        if (SecurityUtil.authUserId() == meal.getUserId()) {
+            return meal;
+        } else {
+            throw new NotFoundException("Meal not found");
+        }
     }
 
     @Override
-    public Collection<Meal> getAll() {
-        return repository.values();
+    public List<Meal> getAll() {
+        return repository.values().stream().sorted(Comparator.comparing(Meal::getDateTime).reversed()).collect(Collectors.toList());
     }
 }
 
