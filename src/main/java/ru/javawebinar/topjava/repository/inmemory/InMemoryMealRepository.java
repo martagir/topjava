@@ -11,7 +11,6 @@ import ru.javawebinar.topjava.util.MealsUtil;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
-import ru.javawebinar.topjava.web.SecurityUtil;
 
 @Repository
 public class InMemoryMealRepository implements MealRepository {
@@ -19,12 +18,12 @@ public class InMemoryMealRepository implements MealRepository {
     private final AtomicInteger counter = new AtomicInteger(0);
 
     {
-        MealsUtil.meals.forEach(this::save);
+        MealsUtil.meals.forEach(meal -> save(meal, meal.getUserId()));
     }
 
     @Override
-    public Meal save(Meal meal) {
-        if (SecurityUtil.authUserId() != meal.getUserId()) {
+    public Meal save(Meal meal, int userId) {
+        if (userId != meal.getUserId()) {
             return null;
         }
         if (meal.isNew()) {
@@ -37,21 +36,21 @@ public class InMemoryMealRepository implements MealRepository {
     }
 
     @Override
-    public boolean delete(int id) {
-        Meal meal =  repository.get(id);
-        return SecurityUtil.authUserId() == meal.getUserId() && repository.remove(id) != null;
+    public boolean delete(int mealId, int userId) {
+        Meal meal =  repository.get(mealId);
+        return userId == meal.getUserId() && repository.remove(mealId) != null;
     }
 
     @Override
-    public Meal get(int id) {
-        Meal meal =  repository.get(id);
+    public Meal get(int mealId, int userId) {
+        Meal meal =  repository.get(mealId);
 
-        return SecurityUtil.authUserId() == meal.getUserId() ? meal : null;
+        return userId == meal.getUserId() ? meal : null;
     }
 
     @Override
-    public List<Meal> getAll() {
-        return repository.values().stream().sorted(Comparator.comparing(Meal::getDateTime).reversed()).collect(Collectors.toList());
+    public List<Meal> getAll(int userId) {
+        return repository.values().stream().filter(meal -> userId == meal.getUserId()).sorted(Comparator.comparing(Meal::getDateTime).reversed()).collect(Collectors.toList());
     }
 }
 
