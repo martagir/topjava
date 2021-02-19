@@ -81,6 +81,10 @@ public class User extends AbstractNamedEntity {
         return id == null;
     }
 
+    public boolean isAdmin() {
+        return roles.contains(Role.ADMIN);
+    }
+
     @Override
     public String toString() {
         return "User (" +
