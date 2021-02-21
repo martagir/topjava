@@ -1,5 +1,7 @@
 package ru.javawebinar.topjava.repository;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import ru.javawebinar.topjava.model.Meal;
 
@@ -16,4 +18,6 @@ public interface MealRepository {
 
     // ORDERED dateTime desc
     List<Meal> getAll(int userId);
+
+    List<Meal> getFiltered(LocalDate date, LocalTime time, int userId);
 }

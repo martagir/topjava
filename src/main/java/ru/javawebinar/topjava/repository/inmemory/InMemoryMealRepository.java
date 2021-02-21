@@ -1,11 +1,16 @@
 package ru.javawebinar.topjava.repository.inmemory;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.repository.MealRepository;
+import ru.javawebinar.topjava.util.DateTimeUtil;
 import ru.javawebinar.topjava.util.MealsUtil;
 
 import java.util.Map;
@@ -51,6 +56,13 @@ public class InMemoryMealRepository implements MealRepository {
     @Override
     public List<Meal> getAll(int userId) {
         return repository.values().stream().filter(meal -> userId == meal.getUserId()).sorted(Comparator.comparing(Meal::getDateTime).reversed()).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Meal> getFiltered(LocalDate date, LocalTime time, int userId) {
+//        repository.values().stream()
+//                .filter(meal -> (userId == meal.getUserId()) && DateTimeUtil.isBetweenHalfOpen(meal.getDate(), ))
+//                .sorted(Comparator.comparing(Meal::getDateTime).reversed()).collect(Collectors.toList());
     }
 }
 

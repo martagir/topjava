@@ -24,6 +24,11 @@
     <h3>Id авторизованного юзера: ${userId}</h3>
     <a href="meals?action=create">Add Meal</a>
     <br><br>
+    <form method="post" action="filter">
+        <input type="date" value="${dateFilter}" name="date">
+        <input type="time" value="${timeFilter}" name="time">
+        <button type="submit">Отфильтровать</button>
+    </form>
     <table border="1" cellpadding="8" cellspacing="0">
         <thead>
         <tr>
