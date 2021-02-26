@@ -2,11 +2,7 @@ package ru.javawebinar.topjava;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Date;
 import ru.javawebinar.topjava.model.Meal;
-import ru.javawebinar.topjava.model.Role;
-import ru.javawebinar.topjava.model.User;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static ru.javawebinar.topjava.model.AbstractBaseEntity.START_SEQ;
@@ -19,15 +15,22 @@ public class MealTestData {
     public static final int MEAL_5_ID = START_SEQ + 6;
     public static final int MEAL_6_ID = START_SEQ + 7;
     
-    public static final Meal meal_1 = new Meal(MEAL_1_ID, null, "Завтрак", 250);
-    public static final Meal meal_2 = new Meal(MEAL_2_ID, null, "Обед", 250);
-    public static final Meal meal_3 = new Meal(MEAL_3_ID, null, "Ужин", 250);
-    public static final Meal meal_4 = new Meal(MEAL_4_ID, null, "Завтрак", 250);
-    public static final Meal meal_5 = new Meal(MEAL_5_ID, null, "Обед", 250);
-    public static final Meal meal_6 = new Meal(MEAL_6_ID, null, "Ужин", 250);
+    public static final Meal meal_1 = new Meal(MEAL_1_ID, LocalDateTime.now(), "Завтрак", 250);
+    public static final Meal meal_2 = new Meal(MEAL_2_ID, LocalDateTime.now(), "Обед", 250);
+    public static final Meal meal_3 = new Meal(MEAL_3_ID, LocalDateTime.now(), "Ужин", 250);
+    public static final Meal meal_4 = new Meal(MEAL_4_ID, LocalDateTime.now(), "Завтрак", 250);
+    public static final Meal meal_5 = new Meal(MEAL_5_ID, LocalDateTime.now(), "Обед", 250);
+    public static final Meal meal_6 = new Meal(MEAL_6_ID, LocalDateTime.now(), "Ужин", 250);
 
     public static Meal getNew() {
         return new Meal(null, LocalDateTime.now(), "Ночной дожор",  1500);
+    }
+
+    public static Meal getUpdated() {
+        Meal updated = new Meal(meal_1);
+        updated.setCalories(500);
+        updated.setDescription("Уменьшаем калории");
+        return updated;
     }
 
     public static void assertMatch(Meal actual, Meal expected) {
