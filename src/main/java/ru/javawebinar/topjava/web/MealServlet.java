@@ -50,6 +50,7 @@ public class MealServlet extends HttpServlet {
         } else {
             mealController.create(meal);
         }
+
         response.sendRedirect("meals");
     }
 
