@@ -80,3 +80,4 @@ public class UserTo extends BaseTo implements Serializable {
                 '}';
     }
 }
+
